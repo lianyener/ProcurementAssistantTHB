@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head>
+    <meta charset="UTF-8">
+    <title>交通部公路總局評選(審)會議助手</title>
+    <link rel="stylesheet" href="style/reset.css">
+    <link rel="stylesheet" href="style/jquery-ui.min.css">
+    <link rel="stylesheet" href="style/style.css">
+  </head>
+  <body>
+    <div id="message">
+      <div id="error" class="ui-state-error ui-corner-all hide">
+        <span class="ui-icon ui-icon-alert"></span>
+        <span class="message"></span>
+        <button id="error-hide-btn">關閉</button>
+      </div>
+    </div>
+    <div id="tabs">
+      <ul>
+        <li><a href="#prog">功能設定</a></li>
+        <li><a href="#data">資料維護</a></li>
+        <li><a href="#form"><span class="term-method">評選</span>總表</a></li>
+        <li><a href="#reco">會議紀錄</a></li>
+      </ul>
+      <div id="prog" class="tab">
+        <h3>專案選擇</h3>
+        <div id="project">
+          <div id="proj-menu">
+            <a id="proj-new-btn" class="menu-btn">重置</a>
+            <a id="proj-load-btn" class="menu-btn">載入</a>
+            <a id="proj-save-btn" class="menu-btn">儲存</a>
+            <a id="proj-del-btn" class="menu-btn">刪除</a>
+            <a id="proj-export-btn" class="menu-btn">匯出</a>
+            <a id="proj-inport-btn" class="menu-btn">匯入</a>
+            <div id="proj-filter" class="text-box">
+              <label class="ui-icon ui-icon-search">搜尋</label>
+              <input type="text"></input>
+            </div>
+          </div>
+          <ol id="proj-list"></ol>
+        </div>
+        <h3>選項設定</h3>
+        <div id="option">
+          <div id="option-form-size" class="row">
+            <span>評選總表列印大小：</span>
+            <input type="radio" id="option-form-size-1" name="form-size" value="0" checked>
+            <label for="option-form-size-1">自動</label>
+            <input type="radio" id="option-form-size-2" name="form-size" value="n">
+            <label for="option-form-size-2">標準</label>
+            <input type="radio" id="option-form-size-3" name="form-size" value="s">
+            <label for="option-form-size-3">較小</label>
+            <input type="radio" id="option-form-size-4" name="form-size" value="xs">
+            <label for="option-form-size-4">最小</label>
+          </div>
+        </div>
+        <h3>使用說明</h3>
+        <div id="readme">
+          <ul>
+            <li>
+              <h2>列印注意事項</h2>
+              <p>建議使用預設邊界，並取消頁首及頁尾。</p>
+            </li>
+            <li>
+              <h2>編輯紀錄方式</h2>
+              <p>雙擊欲編輯的區域，部分有子項之內容請以換行分隔各子項。</p>
+            </li>
+          </ul>
+        </div>
+        <h3>版本歷史</h3>
+        <div id="changelog">
+          <object data="changelog.txt"></object>
+        </div>
+      </div>
+      <div id="data" class="tab">
+        <h3>基本資料</h3>
+        <div id="main-data">
+          <div class="row fill">
+            <span>案名：</span>
+            <span><input type="text" id="data-title" class="text-box"></span>
+          </div>
+          <div class="row fill">
+            <span>日期：</span>
+            <span><input type="text" id="data-date" class="text-box"></span>
+          </div>
+          <div class="row fill">
+            <span>時間：</span>
+            <span><input type="text" id="data-time" class="text-box dropdown" value="下午2時"></span>
+          </div>
+          <div class="row fill">
+            <span>地點：</span>
+            <span><input type="text" id="data-room" class="text-box dropdown" value="本局3樓第2會議室"></span>
+          </div>
+          <div id="data-method" class="row">
+            <span>決標方式：</span>
+            <input type="radio" id="method-1" name="method" value="2" disabled="disabled">
+            <label for="method-1">適用最有利標</label>
+            <input type="radio" id="method-2" name="method" value="0" checked>
+            <label for="method-2">準用最有利標</label>
+            <input type="radio" id="method-3" name="method" value="1">
+            <label for="method-3">參考最有利標精神</label>
+          </div>
+          <div id="data-price-type" class="row">
+            <span>固定金額：</span>
+            <input type="radio" id="price-1" name="price-type" value="0" checked>
+            <label for="price-1">非固定金額</label>
+            <input type="radio" id="price-2" name="price-type" value="1">
+            <label for="price-2">固定金額</label>
+          </div>
+          <div id="data-briefing" class="row">
+            <span>廠商簡報：</span>
+            <input type="radio" id="briefing-1" name="briefing" value="0" checked>
+            <label for="briefing-1">廠商前來簡報</label>
+            <input type="radio" id="briefing-2" name="briefing" value="1">
+            <label for="briefing-2">廠商不必簡報</label>
+          </div>
+          <div class="row fill">
+            <span>及格門檻：</span>
+            <span><input type="number" id="data-barrier" class="text-box" value="70" step="1" min="0"></span>
+          </div>
+          <div id="data-barrier-type" class="row">
+            <span>及格門檻採計方式：</span>
+            <input type="radio" id="barrier-1" name="barrier-type" value="0" checked>
+            <label for="barrier-1">平均總評分於門檻以上</label>
+            <input type="radio" id="barrier-2" name="barrier-type" value="1">
+            <label for="barrier-2">出席委員過半數評為門檻以上</label>
+          </div>
+          <div id="data-draw-type" class="row">
+            <span>序位 (及標價) 相同處理方式：</span>
+            <input type="radio" id="draw-1" name="draw-type" value="0">
+            <label for="draw-1">再行綜合評審</label>
+            <input type="radio" id="draw-2" name="draw-type" value="1" checked>
+            <label for="draw-2">依配分最高之評審項目合計</label>
+            <input type="radio" id="draw-3" name="draw-type" value="2">
+            <label for="draw-3">依獲得序位第一數量</label>
+          </div>
+          <div class="row fill highest-block">
+            <span>配分最高之評選項目：</span>
+            <span><input type="text" id="data-highest" class="text-box"></span>
+          </div>
+          <div id="data-num-type" class="row">
+            <span>廠商編號方式：</span>
+            <input type="radio" id="num-1" name="num-type" value="0" checked>
+            <label for="num-1">甲乙丙…</label>
+            <input type="radio" id="num-2" name="num-type" value="1">
+            <label for="num-2">一二三…</label>
+            <input type="radio" id="num-3" name="num-type" value="2">
+            <label for="num-3">1 2 3 …</label>
+            <input type="radio" id="num-4" name="num-type" value="3">
+            <label for="num-4">壹貳叄…</label>
+          </div>
+        </div>
+        <h3>廠商資料</h3>
+        <div id="comp-data">
+          <p class="list-row ui-widget-header">
+            <span class="xs-col">#</span>
+            <span class="xl-col">廠商名稱</span>
+            <span class="m-col">廠商標價</span>
+          </p>
+          <ul id="comp-list" class="list"></ul>
+          <ul id="comp-spare" class="hide">
+              <li class="list-row ui-state-default">
+                <span class="xs-col"></span>
+                <input class="xl-col pure-box name" type="text">
+                <input class="m-col pure-box price" type="number" step="1" min="0">
+                <span class="l-col"></span>
+                <button class="list-del-btn">刪除資料</button>
+              </li>
+          </ul>
+          <button id="comp-add-btn" class="list-add-btn">新增資料</button>
+        </div>
+        <h3>委員資料維護</h3>
+        <div id="memb-data">
+          <p class="list-row ui-widget-header">
+            <span class="s-col">姓</span>
+            <span class="s-col">名</span>
+            <span class="m-col">&nbsp;</span>
+            <span class="s-col">職業</span>
+            <span class="s-col">類型</span>
+            <span class="s-col">出席</span>
+            <span class="s-col">副召集人</span>
+          </p>
+          <ul id="memb-list" class="list"></ul>
+          <ul id="memb-spare" class="hide">
+            <li class="list-row ui-state-default">
+              <input class="s-col pure-box name" type="text">
+              <input class="s-col pure-box name" type="text">
+              <span class="m-col"></span>
+              <input class="s-col pure-box job dropdown" type="text">
+              <div class="radio-set s-col">
+                <input type="radio" id="memb-type-0-1" class="outside" name="memb-type-0" value="0">
+                <label for="memb-type-0-1">非專</label>
+                <input type="radio" id="memb-type-0-2" class="outside" name="memb-type-0" value="1">
+                <label for="memb-type-0-2">專學</label>
+              </div>
+              <div class="radio-set s-col">
+                <input type="radio" id="memb-attend-0-1" class="attend" name="memb-attend-0" value="0">
+                <label for="memb-attend-0-1">出席</label>
+                <input type="radio" id="memb-attend-0-2" class="attend" name="memb-attend-0" value="1">
+                <label for="memb-attend-0-2">請假</label>
+              </div>
+              <div class="s-col">
+                <input type="checkbox" class="vice" name="memb-vice">
+              </div>
+              <button class="list-del-btn">刪除資料</button>
+            </li>
+          </ul>
+          <button id="memb-add-btn" class="list-add-btn">新增資料</button>
+        </div>
+        <h3>工作小組資料維護</h3>
+        <div id="team-data">
+          <p class="list-row ui-widget-header">
+            <span class="l-col">姓名</span>
+            <span class="s-col">出席</span>
+            <span class="s-col">紀錄</span>
+          </p>
+          <ul id="team-list" class="list"></ul>
+          <ul id="team-spare" class="hide">
+            <li class="list-row ui-state-default">
+              <input class="l-col pure-box name" type="text">
+              <div class="radio-set s-col">
+                <input type="radio" id="team-attend-0-1" class="attend" name="team-attend-0" value="0">
+                <label for="team-attend-0-1">出席</label>
+                <input type="radio" id="team-attend-0-2" class="attend" name="team-attend-0" value="1">
+                <label for="team-attend-0-2">請假</label>
+              </div>
+              <div class="s-col">
+                <input type="radio" class="keeper" name="team-recorder">
+              </div>
+              <button class="list-del-btn">刪除資料</button>
+            </li>
+          </ul>
+          <button id="team-add-btn" class="list-add-btn">新增資料</button>
+        </div>
+      </div>
+      <div id="form" class="tab">
+        <div id="forms" class="print">
+          <div>
+            <p class="main-title">交通部公路總局</p>
+            <p class="main-title"><span class="term-method">評選</span>委員<span class="term-method">評選</span>總表（適用於序位法）</p>
+            <p class="sub-title">採購案：<span class="title"></span><span class="right">日期：<span id="form-date">年月日</span></span></p>
+          </div>
+          <table id="main-form"><tr><td></td></tr></table>
+          <table id="memb-form" class="combined">
+            <tr>
+              <td class="fixed-col-1" rowspan="6"><span class="term-method">評選</span><br>委員</td>
+              <td class="fixed-col-2">姓名</td><td class="name-col"></td>
+            </tr>
+            <tr><td>職業</td><td class="job-col"></td></tr>
+            <tr><td>出席或缺席</td><td class="sign-col"></td></tr>
+            <tr><td>姓名</td><td class="name-col"></td></tr>
+            <tr><td>職業</td><td class="job-col"></td></tr>
+            <tr><td>出席或缺席</td><td class="sign-col"></td></td></tr>
+          </table>
+          <table id="memo-form" class="combined">
+            <tr>
+              <td class="fixed-col">其他記事</td>
+              <td class="memo-col">
+                <p>1.出席委員是否就各<span class="term-method">評選</span>項目、受評廠商資料及工作小組初審意見，逐項討論後再予評分：<span class="edit"><span class="auto">是</span><span class="free hide"></span></span></p>
+                <p>2.不同出席委員<span class="term-method">評選</span>結果有無明顯差異（如有，其情形及處置）：<span class="edit"><span class="auto">無</span><span class="free hide"></span></span></p>
+                <p>3.本<span class="term-group">委員會</span>或個別委員<span class="term-method">評選</span>結果與工作小組初審意見有無差異（如有，其情形及處置）：<span class="edit"><span class="auto">無</span><span class="free hide"></span></span></p>
+                <p>4.<span class="term-method">評選</span>結果於簽報機關首長或其授權人員核定後方生效。</p>
+              </td>
+            </tr>
+          </table>
+          <p class="sub-title">出席<span class="term-method">評選</span>委員簽名：</p>
+        </div>
+        <a id="form-print-btn">列印</a>
+        <a id="form-clear-btn">清空</a>
+        <a id="form-rerank-btn" class="hide">同序再評設定</a>
+        <a id="form-ballot-btn" class="hide">同序抽籤設定</a>
+      </div>
+      <div id="reco" class="tab">
+        <div id="recos" class="print">
+          <p class="main-title"><span class="edit multi">
+            <span class="auto multi">
+              交通部公路總局<br>
+              「<span class="title"></span>」<br>
+              採購<span class="term-method">評選</span><span class="term-group">委員會</span><span class="term-method">評選</span>會議紀錄
+            </span>
+            <span class="free multi hide"></span>
+          </span></p>
+          <p class="reco-item edit">壹、會議時間：<span id="reco-date" class="auto"></span><span class="free hide"></span></p>
+          <p class="reco-item edit">貳、會議地點：<span id="reco-room" class="auto room"></span><span class="free hide"></span></p>
+          <p class="reco-item">
+            <span class="edit">參、主&nbsp;&nbsp;持&nbsp;&nbsp;人：
+              <span id="reco-chairman" class="auto"></span><span class="free hide"></span>
+            </span>
+            <span class="edit right">紀錄：<span id="reco-keeper" class="auto"></span><span class="free hide"></span></span>
+          </p>
+          <p class="reco-item edit">肆、<span class="term-method">評選</span><span class="term-group">委員會</span>組成：
+            <span id="reco-memb" class="auto"></span><span class="free hide"></span>
+          </p>
+          <p class="reco-item edit">伍、出席委員：<span id="reco-attend" class="auto">無</span><span class="free hide"></span></p>
+          <p class="reco-item edit">陸、請假委員：<span id="reco-absence" class="auto">無</span><span class="free hide"></span></p>
+          <p class="reco-item edit multi">柒、列席人員（工作小組成員）：<span id="reco-team" class="auto multi"></span><span class="free multi hide"></span></p>
+          <p class="reco-item edit">捌、<span class="term-method">評選</span>方式：
+            <span class="auto">採序位法<span class="term-method">評選</span><span class="term-win">優勝廠商</span>。</span>
+            <span class="free hide"></span>
+          </p>
+          <p class="reco-item edit">玖、投標廠商家數及名稱：<span id="reco-comp" class="auto"></span><span class="free hide"></span></p>
+          <p class="reco-item edit">拾、召集人致詞：<span class="auto">（略）</span><span class="free hide"></span></p>
+          <p class="reco-item edit multi">拾壹、報告事項：
+            <span id="reco-report" class="auto multi">
+              <span class="sub-item">一、<span class="sub">主辦單位就本案需求內容及廠商<span class="term-method">評選</span>事宜報告（略）。</span></span>
+              <span class="sub-item">二、<span class="sub">工作小組初審意見報告（略）。</span></span>
+            </span>
+            <span class="free multi hide"></span>
+          </p>
+          <p class="reco-item edit multi">拾貳、委員確認事項：<span id="reco-cfm" class="auto multi"><br /><span class="term-method">評選</span>委員確認知悉「採購評選委員會委員須知」內容，且無應辭職或予以解聘之情形。</span><span class="free multi hide"></span></p>
+          <p class="reco-item edit multi">拾叁、廠商詢答事項：<span id="reco-qa" class="auto multi">（略）</span><span class="free multi hide"></span></p>
+          <p class="reco-item edit multi">拾肆、<span class="term-method">評選</span>結果：
+            <span class="auto multi">
+              <span class="sub-item">一、<span class="sub">經本<span class="term-group">委員會</span>就各<span class="term-method">評選</span>項目、受評廠商資料及工作小組初審意見逐項討論後，綜合<span class="term-method">評選</span>結果詳評選總表（如附件）。</span></span>
+              <span class="sub-item">二、<span class="sub">經各委員依據本採購案評分表評定參與<span class="term-method">評選</span>廠商分數（序位），並將各委員評分結果填列於<span class="term-method">評選</span>總表<span id="reco-result"></span>。</span></span>
+              <span class="sub-item">三、<span class="sub">經召集人詢問各出席委員及列席人員，均認為不同委員之<span class="term-method">評選</span>結果無明顯差異情形，且<span class="term-method">評選</span>小組或個別委員<span class="term-method">評選</span>結果未與工作小組初審意見有異。</span></span>
+              <span class="sub-item">四、<span class="sub">決議：<br><span id="reco-resolution"></span>。</span></span>
+            </span><span class="free multi hide"></span>
+          </p>
+          <p class="reco-item edit">拾伍、委員是否有不同意見：<span class="auto">無。</span><span class="free hide"></span></p>
+          <p class="reco-item edit">拾陸、散會（<span class="auto">下午3時30分</span><span class="free hide"></span>）。</p>
+          <p id="reco-sign-title">出席評選委員簽名：</p>
+          <table id="reco-sign"><tr><td>委員姓名</td><td>簽名</td></tr></table>
+        </div>
+        <a id="reco-print-btn">列印</a>
+        <a id="reco-reset-btn">重置</a>
+      </div>
+    </div>
+    
+    <iframe id="frame" class="hide"></iframe>
+    <script src="script/renderer.js"></script>
+    <script src="script/jquery-ui.min.js"></script>
+    <script src="script/printThis.js"></script>
+    <script src="script/app.js"></script>
+    <script src="script/event.js"></script>
+    <script src="script/init.js"></script>
+  </body>
+</html>

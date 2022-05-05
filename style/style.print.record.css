@@ -1,0 +1,45 @@
+﻿/* Official */
+.print {
+    border: none;
+}
+
+.print .main-title {
+    margin: 3px 0;
+}
+
+/* Record */
+#recos {
+    padding: 0;
+}
+
+#recos .main-title {
+    font-size: 16.5pt;
+}
+
+#recos .reco-item {
+    margin: 12px 0 0 2em;
+    font-size: 14pt;
+}
+
+#recos .reco-item:first {
+    margin-top: 20px;
+}
+
+#recos .sub-item {
+    margin-top: 5px;
+}
+
+#record-sign-title {
+    margin-top: 30px;
+    font-size: 14pt;
+}
+
+#reco-sign td {
+    height: 40px;
+    font-size: 14pt;
+}
+
+/* Print Option */
+@page {
+    margin: 25mm;
+}

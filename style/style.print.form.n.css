@@ -1,0 +1,63 @@
+﻿
+/* Official */
+.print {
+    border: none;
+    font-size: 13pt;
+}
+
+.print .main-title {
+    margin: 3px 0;
+}
+
+/* Form */
+#forms {
+    padding: 0;
+}
+
+#forms .main-title {
+    font-size: 16.5pt;
+}
+
+#forms .sub-title {
+    margin: 10px 0;
+}
+
+#forms tr {
+    height: 35px;
+    line-height: 17px;
+}
+
+#forms .fixed-col {
+    width: 160px;
+}
+
+#forms .fixed-col-1 {
+    width: 22px;
+    padding: 7px;
+}
+
+#forms .fixed-col-2 {
+    width: 123px;
+}
+
+#forms .crowd-col {
+    font-size: 10pt;
+}
+
+#memo-form .memo-col {
+    padding: 7px 3px 7px 17px;
+    font-size: 12pt;
+}
+
+#main-form .form-box {
+    font-size: 13pt;
+}
+
+#memb-form img.cross {
+    height: 32px;
+}
+
+/* Print Option */
+@page {
+    margin: 15mm 20mm;
+}
